@@ -60,12 +60,15 @@ class QM_Collector_Hooks extends QM_DataCollector {
 		}
 
 		foreach ( $hook_names as $name ) {
+			
+			if($name != 0)
+			{
+				$hook = QM_Hook::process( $name, $wp_filter, self::$hide_qm, self::$hide_core );
+				$hooks[] = $hook;
 
-			$hook = QM_Hook::process( $name, $wp_filter, self::$hide_qm, self::$hide_core );
-			$hooks[] = $hook;
-
-			$all_parts = array_merge( $all_parts, $hook['parts'] );
-			$components = array_merge( $components, $hook['components'] );
+				$all_parts = array_merge( $all_parts, $hook['parts'] );
+				$components = array_merge( $components, $hook['components'] );
+			}
 
 		}
 
